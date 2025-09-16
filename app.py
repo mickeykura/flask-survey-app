@@ -64,11 +64,25 @@ def success():
     return render_template('success.html')
 
 # '/results' にアクセスされたときの処理
-@app.route('/results')
+@app.route('/results', methods=['GET', 'POST'])
 def results():
-    # データベースからすべての回答を取得
-    all_responses = SurveyResponse.query.all()
-    return render_template('results.html', responses=all_responses)
+    # 'POST' メソッド（フォームからパスワードが送信された）の場合
+    if request.method == 'POST':
+        password = request.form.get('password')
+        # パスワードが正しいかチェック
+        if password == '085547':
+            # 正しければ、すべての回答を取得して結果ページを表示
+            all_responses = SurveyResponse.query.all()
+            return render_template('results.html', responses=all_responses)
+        else:
+            # 間違っていれば、エラーメッセージを付けてログインページを再表示
+            error = "パスワードが間違っています。"
+            return render_template('login.html', error=error)
+            
+    # 'GET' メソッド（URLに直接アクセス or リンクをクリック）の場合は、常にログインページを表示
+    return render_template('login.html')
+
+
 
 
 if __name__ == '__main__':
