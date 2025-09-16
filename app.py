@@ -7,8 +7,13 @@ from flask_sqlalchemy import SQLAlchemy
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
+
+instance_path = os.path.join(basedir, 'instance')
+# フォルダが存在しない場合は作成する
+os.makedirs(instance_path, exist_ok=True)
+
 # データベースの保存先を設定
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'survey.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(instance_path, 'survey.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
