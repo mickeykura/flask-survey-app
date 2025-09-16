@@ -24,6 +24,11 @@ class SurveyResponse(db.Model):
     def __repr__(self):
         return f'<SurveyResponse {self.name}>'
 
+
+with app.app_context():
+    db.create_all()
+    
+
 # --- ルーティング (ページのURLを定義) ---
 # ルートURL ('/') にアクセスされたときの処理
 @app.route('/')
