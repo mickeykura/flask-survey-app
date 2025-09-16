@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}送信完了{% endblock %}
+
+{% block content %}
+    <h1>ご回答ありがとうございました！</h1>
+    <p>アンケートへのご協力に感謝いたします。</p>
+    <p><a href="{{ url_for('survey') }}">フォームに戻る</a></p>
+{% endblock %}
