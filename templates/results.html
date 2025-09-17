@@ -8,9 +8,12 @@
         <thead>
             <tr>
                 <th style="padding: 8px;">ID</th>
-                <th style="padding: 8px;">お名前</th>
+                <th style="padding: 8px;">名前</th>
+                <th style="padding: 8px;">デバイス</th>
                 <th style="padding: 8px;">満足度</th>
-                <th style="padding: 8px;">コメント</th>
+                <th style="padding: 8px;">感想</th>
+                <th style="padding: 8px;">改善点</th>
+                <th style="padding: 8px;">フォームコメント</th>
             </tr>
         </thead>
         <tbody>
@@ -18,12 +21,15 @@
             <tr>
                 <td style="padding: 8px;">{{ res.id }}</td>
                 <td style="padding: 8px;">{{ res.name }}</td>
+                <td style="padding: 8px;">{{ res.device }}</td>
                 <td style="padding: 8px;">{{ res.satisfaction }}</td>
-                <td style="padding: 8px;">{{ res.comments }}</td>
+                <td style="padding: 8px;">{{ res.comments_impression }}</td>
+                <td style="padding: 8px;">{{ res.comments_futsal }}</td>
+                <td style="padding: 8px;">{{ res.comments_form }}</td>
             </tr>
             {% else %}
             <tr>
-                <td colspan="4" style="text-align: center; padding: 8px;">まだ回答がありません。</td>
+                <td colspan="7" style="text-align: center; padding: 8px;">まだ回答がありません。</td>
             </tr>
             {% endfor %}
         </tbody>

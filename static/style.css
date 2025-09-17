@@ -1,0 +1,121 @@
+/* ページ全体の基本設定 */
+body {
+    font-family: 'Segoe UI', Meiryo, 'Hiragino Kaku Gothic ProN', sans-serif;
+    background-color: #FFF5F2; /* 見本に近い、柔らかいオレンジ系の背景色 */
+    color: #333;
+    display: flex;
+    justify-content: center; /* フォームを中央揃えに */
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* フォーム全体を囲む白いコンテナ */
+.form-container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 8px; /* 角を丸くする */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* フォームに影を付けて立体感を出す */
+    width: 100%;
+    max-width: 680px; /* フォームの最大幅を指定 */
+}
+
+/* フォームのタイトル */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* 各質問のグループ */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* 質問文のラベル */
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* 必須マーク (*) の色 */
+.required {
+    color: #d9534f; /* 赤色 */
+    margin-left: 2px;
+}
+
+/* 匿名マーク (#) の色 */
+.anonymous {
+    color: #7f4fd9; /* 赤色 */
+    margin-left: 2px;
+}
+
+/* テキスト入力欄、セレクトボックス、テキストエリア共通のスタイル */
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* 入力欄の角を丸くする */
+    box-sizing: border-box; /* paddingを含めた幅計算に */
+    font-size: 1em;
+    font-family: inherit; /* bodyのフォントを継承 */
+}
+
+textarea {
+    resize: vertical; /* 高さの変更のみ許可 */
+}
+
+/* 入力欄が選択されたときのスタイル */
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #E67E22; /* 選択時に枠線の色を変更 */
+    outline: none; /* デフォルトの青い枠線を消す */
+}
+
+/* 送信ボタン */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #E67E22; /* テーマに合わせたボタン色 */
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s; /* ホバー時の色変化を滑らかに */
+}
+
+button[type="submit"]:hover {
+    background-color: #D35400; /* マウスを乗せたときの色 */
+}
+
+
+/* フッターのタイトル「アンケート」のスタイル */
+.footer-title {
+    margin: 0;
+    margin-bottom: 10px; /* 下のリンクとの間に少し余白を設ける */
+    font-size: 2em;
+    color: #777; /* 少し薄い文字色に */
+}
+
+/* フッター内のリンクを囲むdiv */
+footer div {
+    margin-top: 10px;
+}
+
+/* login.htmlの注意書き用スタイル */
+.notice-text {
+    color: #d9534f; /* 赤色 */
+    font-size: 0.9em; /* 少し小さい文字サイズに */
+    text-align: center; /* 中央揃え */
+    margin-bottom: 20px; /*下のフォームとの間に余白を設ける*/
+}

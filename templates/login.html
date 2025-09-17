@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}ログイン{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>結果を見るにはパスワードを入力してください</h1>
+    <p class="notice-text">なお，2025/09/23 23:59:59 までは結果を確認できません</p>
+    
+    {% if error %}
+        <p class="error-message">{{ error }}</p>
+    {% endif %}
+    
+    <form method="post" action="{{ url_for('results') }}" autocomplete="off">
+        <div class="form-group">
+            <label for="password">パスワード<span class="required">*</span></label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        
+        <button type="submit">送信</button>
+    </form>
+</div>
+{% endblock %}

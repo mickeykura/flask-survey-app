@@ -3,31 +3,61 @@
 {% block title %}アンケートに回答{% endblock %}
 
 {% block content %}
-    <h1>サービス満足度アンケート</h1>
-    <form action="{{ url_for('submit') }}" method="post">
-        <div>
-            <label for="name">お名前:</label><br>
+<div class="form-container">
+    <h1>運動会満足度アンケート</h1>
+    <form action="{{ url_for('submit') }}" method="post" autocomplete="off">
+        
+        <div class="form-group">
+            <label for="name">お名前 <span class="required">*</span></label>
             <input type="text" id="name" name="name" required>
         </div>
-        <br>
-        <div>
-            <label for="satisfaction">満足度:</label><br>
+
+        <div class="form-group">
+            <label for="device">このフォームはどのデバイスで見ていますか？ <span class="required">*</span></label>
+            <select id="device" name="device" required>
+                <option value="">選択してください</option>
+                <option value="Android">スマホ（Android）</option>
+                <option value="iPhone">スマホ（iPhone）</option>
+                <option value="Windows">PC（Windows）</option>
+                <option value="Mac">PC（Mac）</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="satisfaction">運動会の満足度を選択してください．【匿名】 <span class="required">*</span><span class="anonymous">#</span></label>
             <select id="satisfaction" name="satisfaction" required>
                 <option value="">選択してください</option>
-                <option value="大変満足">大変満足</option>
                 <option value="満足">満足</option>
                 <option value="普通">普通</option>
                 <option value="不満">不満</option>
+                <option value="不参加">不参加</option>
             </select>
         </div>
-        <br>
-        <div>
-            <label for="comments">ご意見・ご感想:</label><br>
-            <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+
+        <div class="form-group">
+            <label for="comments_impression">感想を自由に入力してください．不参加の方は空白で構いません．【匿名】</span><span class="anonymous">#</span></label>
+            <textarea id="comments_impression" name="comments_impression" rows="4"></textarea>
         </div>
-        <br>
-        <div>
-            <button type="submit">送信</button>
+
+        <div class="form-group">
+            <label for="comments_futsal">今後のフットサル部の活動についての意見（改善点，やりたい競技など）を教えてください．【匿名】</span><span class="anonymous">#</span></label>
+            <textarea id="comments_futsal" name="comments_futsal" rows="4"></textarea>
         </div>
+
+        <div class="form-group">
+            <label for="comments_form">このフォームに対する意見（見やすさ，記入しやすさなど）を教えてください．【匿名】 <span class="required">*</span><span class="anonymous">#</span></label>
+            <textarea id="comments_form" name="comments_form" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="coop">以後，Web・ネイティブアプリ等開発の際，今回のような簡単なアンケートやデバックに協力してくれますか？ <span class="required">*</span></label>
+            <select id="coop" name="coop" required>
+                <option value="×">いいえ</option>
+                <option value="○">はい</option>
+            </select>
+        </div>
+
+        <button type="submit">送信</button>
     </form>
+</div>
 {% endblock %}
