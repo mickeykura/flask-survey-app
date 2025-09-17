@@ -13,7 +13,8 @@
                 <th style="padding: 8px;">満足度</th>
                 <th style="padding: 8px;">感想</th>
                 <th style="padding: 8px;">改善点</th>
-                <th style="padding: 8px;">フォームコメント</th>
+                <th style="padding: 8px;">フォーム</th>
+                <th style="padding: 8px;">協力</th>
             </tr>
         </thead>
         <tbody>
@@ -26,10 +27,11 @@
                 <td style="padding: 8px;">{{ res.comments_impression }}</td>
                 <td style="padding: 8px;">{{ res.comments_futsal }}</td>
                 <td style="padding: 8px;">{{ res.comments_form }}</td>
+                <td style="padding: 8px;">{{ res.coop }}</td>
             </tr>
             {% else %}
             <tr>
-                <td colspan="7" style="text-align: center; padding: 8px;">まだ回答がありません。</td>
+                <td colspan="8" style="text-align: center; padding: 8px;">まだ回答がありません。</td>
             </tr>
             {% endfor %}
         </tbody>
