@@ -18,13 +18,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# --- データベースモデルの定義 ---
-# 回答を保存するためのテーブルを定義します
+# --- 変更点 1: データベースモデルの定義 ---
+# survey.htmlのフォーム内容に合わせて、保存する列を修正します
 class SurveyResponse(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    device = db.Column(db.String(50), nullable=False)
     satisfaction = db.Column(db.String(50), nullable=False)
-    comments = db.Column(db.Text, nullable=True)
+    comments_impression = db.Column(db.Text, nullable=True)
+    comments_futsal = db.Column(db.Text, nullable=True)
+    comments_form = db.Column(db.Text, nullable=True)
 
     def __repr__(self):
         return f'<SurveyResponse {self.name}>'
@@ -35,21 +38,31 @@ with app.app_context():
     
 
 # --- ルーティング (ページのURLを定義) ---
-# ルートURL ('/') にアクセスされたときの処理
 @app.route('/')
 def survey():
     return render_template('survey.html')
 
-# '/submit' にフォームデータがPOSTされたときの処理
+# --- 変更点 2: /submit ルートの処理 ---
+# survey.htmlから送信されるすべてのデータを受け取るように修正します
 @app.route('/submit', methods=['POST'])
 def submit():
-    # フォームからデータを取得
+    # フォームから新しいデータを取得
     name = request.form['name']
+    device = request.form['device']
     satisfaction = request.form['satisfaction']
-    comments = request.form['comments']
+    comments_impression = request.form['comments_impression']
+    comments_futsal = request.form['comments_futsal']
+    comments_form = request.form['comments_form']
 
-    # 新しい回答オブジェクトを作成
-    new_response = SurveyResponse(name=name, satisfaction=satisfaction, comments=comments)
+    # 新しいモデルに合わせてオブジェクトを作成
+    new_response = SurveyResponse(
+        name=name, 
+        device=device,
+        satisfaction=satisfaction, 
+        comments_impression=comments_impression,
+        comments_futsal=comments_futsal,
+        comments_form=comments_form
+    )
 
     # データベースに保存
     db.session.add(new_response)
@@ -58,30 +71,29 @@ def submit():
     # 送信完了ページにリダイレクト
     return redirect(url_for('success'))
 
-# '/success' にアクセスされたときの処理
+
 @app.route('/success')
 def success():
     return render_template('success.html')
 
-# '/results' にアクセスされたときの処理
-@app.route('/results', methods=['GET', 'POST'])
-def results():
-    # 'POST' メソッド（フォームからパスワードが送信された）の場合
-    if request.method == 'POST':
-        password = request.form.get('password')
-        # パスワードが正しいかチェック
-        if password == '085547':
-            # 正しければ、すべての回答を取得して結果ページを表示
-            all_responses = SurveyResponse.query.all()
-            return render_template('results.html', responses=all_responses)
-        else:
-            # 間違っていれば、エラーメッセージを付けてログインページを再表示
-            error = "パスワードが間違っています。"
-            return render_template('login.html', error=error)
-            
-    # 'GET' メソッド（URLに直接アクセス or リンクをクリック）の場合は、常にログインページを表示
+
+@app.route('/login')
+def login():
+    """パスワード入力フォームのページを表示します。"""
     return render_template('login.html')
 
+
+@app.route('/results', methods=['POST'])
+def results():
+    """パスワードを検証し、正しければ結果を表示、間違っていればエラーを表示します。"""
+    password = request.form.get('password')
+    
+    if password == '085547':
+        all_responses = SurveyResponse.query.all()
+        return render_template('results.html', responses=all_responses)
+    else:
+        error = "パスワードが間違っています。"
+        return render_template('login.html', error=error)
 
 
 
