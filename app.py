@@ -2,6 +2,33 @@ import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
+import os
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+
+# --- アプリケーションの初期設定 ---
+app = Flask(__name__)
+
+# ▼▼▼▼▼▼▼▼▼ この部分を変更 ▼▼▼▼▼▼▼▼
+# Renderの環境変数からデータベースURLを取得。なければローカルのSQLiteを使う
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    # PostgreSQLのURL形式をSQLAlchemyが認識できるように修正
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+else:
+    # ローカル開発用の設定
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    instance_path = os.path.join(basedir, 'instance')
+    os.makedirs(instance_path, exist_ok=True)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(instance_path, 'survey.db')
+# ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+# ... (以降のコードは変更なし) ...
+
 # --- アプリケーションの初期設定 ---
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
