@@ -12,6 +12,8 @@ if DATABASE_URL:
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
     app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
     
+
+    
 """
 else:
     # ローカル開発用の設定（DATABASE_URLがない場合）
